@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+        - name: frontend
+          image: frontend
+          imagePullPolicy: Never
+          ports:
+          - containerPort: 50000
+          env:
+            - name: FLASK_APP
+              valueFrom:
+                configMapKeyRef:
+                  key: FLASK_APP
+                  name: task-frontend-env-development
+            - name: FLASK_DEBUG
+              valueFrom:
+                configMapKeyRef:
+                  key: FLASK_DEBUG
+                  name: task-frontend-env-development
+            - name: INFERENCE_BASE_URL
+              valueFrom:
+                configMapKeyRef:
+                  key: INFERENCE_BASE_URL
+                  name: task-frontend-env-development
+      restartPolicy: Always

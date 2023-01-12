@@ -1,0 +1,21 @@
+version: "3"
+services:
+  frontend:
+    build:
+      context: frontend
+      dockerfile: Dockerfile
+    ports:
+      - 5000:5000
+    environment:
+      FLASK_APP: main.py
+      FLASK_DEBUG: True
+      INFERENCE_BASE_URL: http://inference:8686/
+  inference:
+    build:
+      context: inference
+      dockerfile: Dockerfile
+    ports:
+      - 8686:8686
+    command: uvicorn api:app --host 0.0.0.0 --port 8686 --reload
+    restart: always
+

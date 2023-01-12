@@ -1,0 +1,21 @@
+docker network create --driver bridge wp_net
+docker volume create  wp_db
+
+docker run  --name wordpressdb \
+      -e MYSQL_ROOT_PASSWORD=somewordpress \
+      -e MYSQL_DATABASE=wordpress \
+      -e MYSQL_USER=wordpress \
+      -e MYSQL_PASSWORD=wordpress \
+      --network wp_net \
+      --mount source=wp_db,target=/var/lib/mysql \
+      -d mariadb:10.6.4-focal \
+      '--default-authentication-plugin=mysql_native_password'
+
+docker run --name wordpress \
+      -e WORDPRESS_DB_HOST=# put here real ip from: "docker exec -it wordpressdb hostname -i" \
+      -e WORDPRESS_DB_USER=wordpress \
+      -e WORDPRESS_DB_PASSWORD=wordpress \
+      -e WORDPRESS_DB_NAME=wordpress \
+      --network wp_net -p 80:80 \
+      --mount source=wp_vol,target=/var/www/html \
+      -d wordpress

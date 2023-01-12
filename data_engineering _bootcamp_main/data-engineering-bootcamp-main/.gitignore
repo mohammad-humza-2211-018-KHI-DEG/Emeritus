@@ -1,0 +1,14 @@
+# Directories
+.vscode/
+.idea/
+.mypy_cache/
+.ipynb_checkpoints/
+
+venv/
+__pycache__/
+
+# File formats
+*.pyc
+
+# Files
+.env

@@ -1,0 +1,15 @@
+repos:
+-   repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v0.971
+    hooks:
+    -   id: mypy
+        args: ["--strict"]
+        additional_dependencies: [
+            "types-SQLAlchemy==1.4.53.2",
+            "typer==0.6.1",
+        ]
+
+-   repo: https://github.com/psf/black
+    rev: 22.8.0
+    hooks:
+    -   id: black

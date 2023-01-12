@@ -1,0 +1,4 @@
+$ docker run -it  day3_task:0.1
+Hello world!
+$ docker run -it  day3_task:0.1 "New greetings msg"
+New greetings msg

@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: inference-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: inference
+  template:
+    metadata:
+      labels:
+        app: inference
+    spec:
+      containers:
+        - args:
+            - uvicorn
+            - api:app
+            - --host
+            - 0.0.0.0
+            - --port
+            - "8686"
+            - --reload
+          image: inference
+          imagePullPolicy: Never
+          name: inference
+          ports:
+            - containerPort: 8686
+      restartPolicy: Always
