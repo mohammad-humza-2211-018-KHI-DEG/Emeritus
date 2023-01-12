@@ -1,0 +1,2 @@
+$ sudo systemctl restart docker.socket docker.service
+$ docker rm -f <container id>
