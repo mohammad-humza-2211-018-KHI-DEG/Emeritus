@@ -1,0 +1,17 @@
+version: "3"
+services:
+  app_humza:
+    build: app/
+    ports:
+      - 5002:5002
+    environment:
+      DEBUG: True
+      DB_URL: postgresql://test:test@db_humza/test
+    command: "bash -c '/wait-for-it.sh db_humza:5432 -- gunicorn main:app -b 0.0.0.0:5002'"
+  db_humza:
+     image: postgres
+     environment:
+       POSTGRES_DB: test
+       POSTGRES_USER: test
+       POSTGRES_PASSWORD: test
+
